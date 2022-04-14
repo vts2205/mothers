@@ -82,6 +82,8 @@ Route::any('deletes/cost/index', 'DeletesController@cost_index')->name('deletes.
 Route::get('deletes/cost/view/{id}', 'DeletesController@cost_view')->name('deletes.cost_view');
 Route::any('deletes/receipt/index', 'DeletesController@receipt_index')->name('deletes.receipt_index');
 Route::get('deletes/receipt/view/{id}', 'DeletesController@receipt_view')->name('deletes.receipt_view');
+Route::any('deletes/payment/index', 'DeletesController@payment_index')->name('deletes.payment_index');
+Route::get('deletes/payment/view/{id}', 'DeletesController@payment_view')->name('deletes.payment_view');
 
 
 Route::any('costs/index', 'CostsController@index')->name('costs.index');

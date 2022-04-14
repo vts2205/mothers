@@ -289,6 +289,7 @@
                                     </span>
                                 </a>
                             </li>
+                           
                             <li class="m-menu__item " aria-haspopup="true" >
                                 <a  href="{{route('deletes.cost_index')}}" class="m-menu__link @if(($controller=='DeletesController' && $action=='cost_index') || 
                                     ($controller=='DeletesController' && $action=='cost_view')  )  active @endif">
@@ -297,6 +298,19 @@
                                         <span class="m-menu__link-wrap">
                                             <span class="m-menu__link-text">
                                                 COST DETAILS
+                                            </span>
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="m-menu__item " aria-haspopup="true" >
+                                <a  href="{{route('deletes.payment_index')}}" class="m-menu__link @if(($controller=='DeletesController' && $action=='payment_index') || 
+                                    ($controller=='DeletesController' && $action=='payment_view')  )  active @endif">
+                                    <i class="m-menu__link-icon flaticon-file"></i>
+                                    <span class="m-menu__link-title">
+                                        <span class="m-menu__link-wrap">
+                                            <span class="m-menu__link-text">
+                                                PAYMENT DETAILS
                                             </span>
                                         </span>
                                     </span>

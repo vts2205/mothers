@@ -53,6 +53,7 @@
                                         </div>
                                         <?php
                                         $customer = App\Customer::where('customer_id', $detail['customer_id'])->first();
+                                       
                                         ?>
                                         <div class="form-group row">
                                             <label class="col-md-3 offset-md-1">

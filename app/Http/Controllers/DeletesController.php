@@ -16,6 +16,7 @@ use App\Customer;
 use App\Document;
 use App\Cost;
 use App\Receipt;
+use App\Payment;
 
 class DeletesController extends Controller
 {
@@ -140,5 +141,45 @@ class DeletesController extends Controller
         $sessionadmin = Parent::checkadmin();
         $detail = Receipt::where('receipt_id', '=', $id)->first();
         return view('deletes/receipt_view', ['detail' => $detail]);
+    }
+    public function payment_index()
+    {
+        $sessionadmin = Parent::checkadmin();
+        $result = Payment::where('status', '<>', 'Active')
+            ->orderBy('payment_id', 'desc');
+            if (!empty($_REQUEST['applicant_name'])) {
+                $customer = $_REQUEST['applicant_name'];    
+                $result->where(function ($query) use ($customer) {
+                    $query->where('applicant_name', 'LIKE', "%$customer%");
+                });
+            }
+            if (!empty($_REQUEST['application_number'])) {
+                $customer = $_REQUEST['application_number'];
+                $result->where(function ($query) use ($customer) {
+                    $query->where('application_number', 'LIKE', "%$customer%");
+                });
+            }
+            if (!empty($_REQUEST['bank_type'])) {
+                $customer = $_REQUEST['bank_type'];
+                $result->where(function ($query) use ($customer) {
+                    $query->where('bank_type', 'LIKE', "%$customer%");
+                });
+            }
+
+        $result = $result->paginate(10);
+
+        return view('/deletes/payment_index', [
+            'results' => $result
+        ]);
+    }
+    public function payment_view($id = null)
+    {
+        $sessionadmin = Parent::checkadmin();
+        $detail = Payment::where('customer_id', '=', $id)->where('status','Trash');
+       
+
+         $detail = $detail->paginate(10);
+
+        return view('deletes/payment_view', ['results' => $detail]);
     }
 }

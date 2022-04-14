@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 31, 2022 at 01:53 PM
+-- Generation Time: Apr 14, 2022 at 07:45 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -110,10 +110,22 @@ CREATE TABLE `costs` (
   `corpus_fund` varchar(255) DEFAULT NULL,
   `gst` varchar(255) DEFAULT NULL,
   `total_amount` varchar(255) DEFAULT NULL,
+  `addedby` varchar(255) DEFAULT NULL,
   `status` enum('Active','Trash') NOT NULL DEFAULT 'Active',
   `created_date` datetime DEFAULT NULL,
   `modified_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `costs`
+--
+
+INSERT INTO `costs` (`cost_id`, `customer_id`, `document_id`, `application_number`, `applicant_name`, `block`, `flatnumber`, `flattype`, `floor`, `facing`, `rate_sqft`, `sal_area`, `salable_value`, `uds_area`, `guideline_value`, `land_cost`, `construction_cost`, `electricity_charges`, `water_supply`, `car_park`, `amenities_charges`, `maintenance`, `gross_amount`, `stamp`, `registration`, `construction`, `corpus_fund`, `gst`, `total_amount`, `addedby`, `status`, `created_date`, `modified_date`) VALUES
+(22, 52, 32, '1003', 'Kamal', 17, 670, 35, 23, 'East', '100', '150', '15000', '150', '10', '1500', '13500', '0', '0', '0', '0', '0', '15000', '105', '60', '270', '0', '150', '15585', 'mothersvillage', 'Trash', '2022-04-05 14:42:53', NULL),
+(23, 48, 30, '001', 'jamal', 16, 373, 15, 18, 'East', '15.55', '100', '1555', '100', '21.25', '2125', '-570', '0', '0', '0', '0', '0', '1555', '149', '85', '-11', '0', '16', '1794', 'admin', 'Trash', '2022-04-12 11:23:40', NULL),
+(24, 48, 30, '001', 'jamal', 16, 373, 15, 18, 'East', '15.55', '100', '1555.00', '100', '21.25', '2125', '-570', '0', '0', '0', '0', '0', '1555', '149', '85', '-11', '0', '16', '1794', 'admin', 'Trash', '2022-04-12 11:29:20', NULL),
+(25, 48, 33, '001', 'jamal', 16, 389, 19, 19, 'North', '15.55', '234', '3638.70', '21', '21.25', '446.25', '3192.45', '0', '0', '0', '0', '0', '3638.70', '31.24', '17.85', '63.85', '0', '36.39', '3788.03', 'admin', 'Active', '2022-04-12 11:52:06', NULL),
+(26, 52, 32, '1003', 'Kamal', 17, 670, 35, 23, 'East', '100', '150', '15000.00', '150', '50', '7500.00', '7500.00', '0', '0', '0', '0', '0', '15000.00', '525.00', '300.00', '150.00', '0', '150.00', '16125.00', 'admin', 'Active', '2022-04-12 11:55:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -140,10 +152,22 @@ CREATE TABLE `customers` (
   `permanent_address` text DEFAULT NULL,
   `present_address` text DEFAULT NULL,
   `photo` varchar(255) DEFAULT NULL,
+  `addedby` varchar(255) DEFAULT NULL,
   `created_date` datetime NOT NULL,
   `modified_date` datetime DEFAULT NULL,
   `status` enum('Active','Inactive','Trash') NOT NULL DEFAULT 'Active'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`customer_id`, `application_number`, `date_of_application`, `applicant_name`, `fathers_name`, `age`, `gender`, `phone_code`, `phone`, `altphone_code`, `altphone`, `email`, `occupation`, `experience`, `income`, `permanent_address`, `present_address`, `photo`, `addedby`, `created_date`, `modified_date`, `status`) VALUES
+(48, '001', '04-04-2022', 'jamal', 'ahamed', 26, 'Male', '91', '8547858748', NULL, NULL, 'jam@gmail.com', NULL, NULL, NULL, NULL, NULL, '624ad5a9ecf09.jpg', NULL, '2022-04-04 16:55:29', NULL, 'Trash'),
+(49, '002', '04-04-2022', 'ahamed', 'meeran', 26, 'Female', '91', '9874563210', NULL, NULL, 'aham@gmail.com', NULL, NULL, NULL, NULL, NULL, '624ad6608cb96.jpg', NULL, '2022-04-04 16:58:32', NULL, 'Trash'),
+(50, '1001', '05-04-2022', 'Sajith', 'Nithisa', 26, 'Female', '+91', '9874563212', '+91', '1234567890', 'sajith@gmail.com', 'Developer', 5, '20000', 'Coimbatore', 'Coimbatore', '624bed418ad56.png', '14', '2022-04-05 12:48:25', NULL, 'Trash'),
+(51, '1002', '05-04-2022', 'Velmurugan', 'Vel', 30, 'Male', '+91', '8428935898', NULL, NULL, 'vel@gmail.com', NULL, NULL, NULL, NULL, NULL, '624bf0b8556d2.jpg', '0', '2022-04-05 13:03:12', NULL, 'Trash'),
+(52, '1003', '05-04-2022', 'Kamal', 'Haasan', 50, 'Male', '+91', '8458968585', NULL, NULL, 'kamal@gmail.com', NULL, NULL, NULL, NULL, NULL, '624bf11b82f69.png', 'mothersvillage', '2022-04-05 13:04:51', NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -176,6 +200,10 @@ CREATE TABLE `documents` (
   `coapp_phone` varchar(255) DEFAULT NULL,
   `coapp_address` text DEFAULT NULL,
   `coapp_email` varchar(255) DEFAULT NULL,
+  `customer_type` varchar(255) DEFAULT NULL,
+  `refered_name` varchar(255) DEFAULT NULL,
+  `refered_phone_code` varchar(255) DEFAULT NULL,
+  `refered_phone` varchar(255) DEFAULT NULL,
   `phase` int(11) DEFAULT NULL,
   `block` int(11) DEFAULT NULL,
   `floor` int(11) DEFAULT NULL,
@@ -187,9 +215,20 @@ CREATE TABLE `documents` (
   `uds_area` varchar(255) DEFAULT NULL,
   `comn_area` varchar(255) DEFAULT NULL,
   `status` enum('Active','Trash') NOT NULL DEFAULT 'Active',
+  `addedby` varchar(255) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `modified_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `documents`
+--
+
+INSERT INTO `documents` (`document_id`, `customer_id`, `application_number`, `date_of_application`, `applicant_name`, `co_applicant_name`, `aadhar_number`, `aadhar`, `pan_number`, `pan`, `passport`, `passport_number`, `coaadhar_number`, `coaadhar`, `copan`, `copan_number`, `copassport`, `copassport_number`, `phone_code`, `phone`, `coapp_phone_code`, `coapp_phone`, `coapp_address`, `coapp_email`, `customer_type`, `refered_name`, `refered_phone_code`, `refered_phone`, `phase`, `block`, `floor`, `flattype`, `flatnumber`, `facing`, `salable_area`, `plinth_area`, `uds_area`, `comn_area`, `status`, `addedby`, `created_date`, `modified_date`) VALUES
+(30, 48, '001', '04-04-2022', 'jamal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '91', '8547858748', NULL, NULL, NULL, NULL, 'Referedby', 'mesla', '91', '8747888587', 12, 16, 18, 15, 373, 'East', '100', '100', '100', '100', 'Trash', NULL, '2022-04-04 16:56:30', NULL),
+(31, 49, '002', '04-04-2022', 'ahamed', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '91', '9874563210', NULL, NULL, NULL, NULL, 'Direct', '-', '-', '-', 12, 16, 18, 15, 374, 'North', '200', '200', '200', '200', 'Trash', NULL, '2022-04-04 16:59:09', NULL),
+(32, 52, '1003', '05-04-2022', 'Kamal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '+91', '8458968585', NULL, NULL, NULL, NULL, 'Direct', '-', '-', '-', 12, 17, 23, 35, 670, 'East', '150', '150', '150', '150', 'Active', 'mothersvillage', '2022-04-05 13:08:42', NULL),
+(33, 48, '001', '04-04-2022', 'jamal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '91', '8547858748', NULL, NULL, NULL, NULL, 'Direct', '-', '-', '-', 12, 16, 19, 19, 389, 'North', '234', '23', '21', '22', 'Trash', 'admin', '2022-04-12 10:57:47', NULL);
 
 -- --------------------------------------------------------
 
@@ -210,6 +249,22 @@ CREATE TABLE `families` (
   `created_date` datetime NOT NULL,
   `modified_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `families`
+--
+
+INSERT INTO `families` (`family_id`, `customer_id`, `relation`, `name`, `age`, `profession`, `school`, `class`, `status`, `created_date`, `modified_date`) VALUES
+(14, '48', 'Son', '-', '-', '-', '-', '-', 'Trash', '2022-04-04 16:55:29', '0000-00-00 00:00:00'),
+(15, '48', 'Daughter', '-', '-', '-', '-', '-', 'Trash', '2022-04-04 16:55:29', '0000-00-00 00:00:00'),
+(16, '49', 'Son', '-', '-', '-', '-', '-', 'Trash', '2022-04-04 16:58:32', '0000-00-00 00:00:00'),
+(17, '49', 'Daughter', '-', '-', '-', '-', '-', 'Trash', '2022-04-04 16:58:32', '0000-00-00 00:00:00'),
+(18, '50', 'Son', '-', '-', '-', '-', '-', 'Trash', '2022-04-05 12:48:25', '0000-00-00 00:00:00'),
+(19, '50', 'Daughter', '-', '-', '-', '-', '-', 'Trash', '2022-04-05 12:48:25', '0000-00-00 00:00:00'),
+(20, '51', 'Son', '-', '-', '-', '-', '-', 'Trash', '2022-04-05 13:03:12', '0000-00-00 00:00:00'),
+(21, '51', 'Daughter', '-', '-', '-', '-', '-', 'Trash', '2022-04-05 13:03:12', '0000-00-00 00:00:00'),
+(22, '52', 'Son', '-', '-', '-', '-', '-', 'Active', '2022-04-05 13:04:51', '0000-00-00 00:00:00'),
+(23, '52', 'Daughter', '-', '-', '-', '-', '-', 'Active', '2022-04-05 13:04:51', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -800,6 +855,10 @@ CREATE TABLE `payments` (
   `date_of_application` varchar(255) DEFAULT NULL,
   `gross_amount` varchar(255) DEFAULT NULL,
   `payment_schedule` varchar(255) DEFAULT NULL,
+  `transaction_type` varchar(255) DEFAULT NULL,
+  `bank_type` varchar(255) DEFAULT NULL,
+  `bank_name` varchar(255) DEFAULT NULL,
+  `loan_amount` varchar(255) DEFAULT NULL,
   `onbook10per` varchar(255) DEFAULT NULL,
   `onbook_received10per` varchar(255) DEFAULT NULL,
   `onbook_balance10per` varchar(255) DEFAULT NULL,
@@ -808,6 +867,7 @@ CREATE TABLE `payments` (
   `onbook_paymenttype10per` varchar(255) DEFAULT NULL,
   `onbook_chequenumber10per` varchar(255) DEFAULT NULL,
   `onbook_neftid10per` varchar(255) DEFAULT NULL,
+  `onbook_rtgsid10per` varchar(255) DEFAULT NULL,
   `payments10per` varchar(255) DEFAULT NULL,
   `payments_received10per` varchar(255) DEFAULT NULL,
   `payments_balance10per` varchar(255) DEFAULT NULL,
@@ -816,6 +876,7 @@ CREATE TABLE `payments` (
   `payments_paymenttype10per` varchar(255) DEFAULT NULL,
   `payments_chequenumber10per` varchar(255) DEFAULT NULL,
   `payments_neftid10per` varchar(255) DEFAULT NULL,
+  `payments_rtgsid10per` varchar(255) DEFAULT NULL,
   `first10per` varchar(255) DEFAULT NULL,
   `first_received10per` varchar(255) DEFAULT NULL,
   `first_balance10per` varchar(255) DEFAULT NULL,
@@ -824,6 +885,7 @@ CREATE TABLE `payments` (
   `first_paymenttype10per` varchar(255) DEFAULT NULL,
   `first_chequenumber10per` varchar(255) DEFAULT NULL,
   `first_neftid10per` varchar(255) DEFAULT NULL,
+  `first_rtgsid10per` varchar(255) DEFAULT NULL,
   `second10per` varchar(255) DEFAULT NULL,
   `second_received10per` varchar(255) DEFAULT NULL,
   `second_balance10per` varchar(255) DEFAULT NULL,
@@ -832,6 +894,7 @@ CREATE TABLE `payments` (
   `second_paymenttype10per` varchar(255) DEFAULT NULL,
   `second_chequenumber10per` varchar(255) DEFAULT NULL,
   `second_neftid10per` varchar(255) DEFAULT NULL,
+  `second_rtgsid10per` varchar(255) DEFAULT NULL,
   `third10per` varchar(255) DEFAULT NULL,
   `third_received10per` varchar(255) DEFAULT NULL,
   `third_balance10per` varchar(255) DEFAULT NULL,
@@ -840,6 +903,7 @@ CREATE TABLE `payments` (
   `third_paymenttype10per` varchar(255) DEFAULT NULL,
   `third_chequenumber10per` varchar(255) DEFAULT NULL,
   `third_neftid10per` varchar(255) DEFAULT NULL,
+  `third_rtgsid10per` varchar(255) DEFAULT NULL,
   `fourth10per` varchar(255) DEFAULT NULL,
   `fourth_received10per` varchar(255) DEFAULT NULL,
   `fourth_balance10per` varchar(255) DEFAULT NULL,
@@ -848,6 +912,7 @@ CREATE TABLE `payments` (
   `fourth_paymenttype10per` varchar(255) DEFAULT NULL,
   `fourth_chequenumber10per` varchar(255) DEFAULT NULL,
   `fourth_neftid10per` varchar(255) DEFAULT NULL,
+  `fourth_rtgsid10per` varchar(255) DEFAULT NULL,
   `fifth10per` varchar(255) DEFAULT NULL,
   `fifth_received10per` varchar(255) DEFAULT NULL,
   `fifth_balance10per` varchar(255) DEFAULT NULL,
@@ -856,6 +921,7 @@ CREATE TABLE `payments` (
   `fifth_paymenttype10per` varchar(255) DEFAULT NULL,
   `fifth_chequenumber10per` varchar(255) DEFAULT NULL,
   `fifth_neftid10per` varchar(255) DEFAULT NULL,
+  `fifth_rtgsid10per` varchar(255) DEFAULT NULL,
   `handover10per` varchar(255) DEFAULT NULL,
   `handover_received10per` varchar(255) DEFAULT NULL,
   `handover_balance10per` varchar(255) DEFAULT NULL,
@@ -864,6 +930,7 @@ CREATE TABLE `payments` (
   `handover_paymenttype10per` varchar(255) DEFAULT NULL,
   `handover_chequenumber10per` varchar(255) DEFAULT NULL,
   `handover_neftid10per` varchar(255) DEFAULT NULL,
+  `handover_rtgsid10per` varchar(255) DEFAULT NULL,
   `onbook15per` varchar(255) DEFAULT NULL,
   `onbook_received15per` varchar(255) DEFAULT NULL,
   `onbook_balance15per` varchar(255) DEFAULT NULL,
@@ -872,6 +939,7 @@ CREATE TABLE `payments` (
   `onbook_paymenttype15per` varchar(255) DEFAULT NULL,
   `onbook_chequenumber15per` varchar(255) DEFAULT NULL,
   `onbook_neftid15per` varchar(255) DEFAULT NULL,
+  `onbook_rtgsid15per` varchar(255) DEFAULT NULL,
   `payments15per` varchar(255) DEFAULT NULL,
   `payments_received15per` varchar(255) DEFAULT NULL,
   `payments_balance15per` varchar(255) DEFAULT NULL,
@@ -880,6 +948,7 @@ CREATE TABLE `payments` (
   `payments_paymenttype15per` varchar(255) NOT NULL,
   `payments_chequenumber15per` varchar(255) DEFAULT NULL,
   `payments_neftid15per` varchar(255) DEFAULT NULL,
+  `payments_rtgsid15per` varchar(255) DEFAULT NULL,
   `first15per` varchar(255) DEFAULT NULL,
   `first_received15per` varchar(255) DEFAULT NULL,
   `first_balance15per` varchar(255) DEFAULT NULL,
@@ -888,6 +957,7 @@ CREATE TABLE `payments` (
   `first_paymenttype15per` varchar(255) DEFAULT NULL,
   `first_chequenumber15per` varchar(255) DEFAULT NULL,
   `first_neftid15per` varchar(255) DEFAULT NULL,
+  `first_rtgsid15per` varchar(255) DEFAULT NULL,
   `second15per` varchar(255) DEFAULT NULL,
   `second_received15per` varchar(255) DEFAULT NULL,
   `second_balance15per` varchar(255) DEFAULT NULL,
@@ -896,6 +966,7 @@ CREATE TABLE `payments` (
   `second_paymenttype15per` varchar(255) DEFAULT NULL,
   `second_chequenumber15per` varchar(255) DEFAULT NULL,
   `second_neftid15per` varchar(255) DEFAULT NULL,
+  `second_rtgsid15per` varchar(255) DEFAULT NULL,
   `third15per` varchar(255) DEFAULT NULL,
   `third_received15per` varchar(255) DEFAULT NULL,
   `third_balance15per` varchar(255) DEFAULT NULL,
@@ -904,6 +975,7 @@ CREATE TABLE `payments` (
   `third_paymenttype15per` varchar(255) DEFAULT NULL,
   `third_chequenumber15per` varchar(255) DEFAULT NULL,
   `third_neftid15per` varchar(255) DEFAULT NULL,
+  `third_rtgsid15per` varchar(255) DEFAULT NULL,
   `fourth15per` varchar(255) DEFAULT NULL,
   `fourth_received15per` varchar(255) DEFAULT NULL,
   `fourth_balance15per` varchar(255) DEFAULT NULL,
@@ -912,6 +984,7 @@ CREATE TABLE `payments` (
   `fourth_paymenttype15per` varchar(255) DEFAULT NULL,
   `fourth_chequenumber15per` varchar(255) DEFAULT NULL,
   `fourth_neftid15per` varchar(255) DEFAULT NULL,
+  `fourth_rtgsid15per` varchar(255) DEFAULT NULL,
   `fifth15per` varchar(255) DEFAULT NULL,
   `fifth_received15per` varchar(255) DEFAULT NULL,
   `fifth_balance15per` varchar(255) DEFAULT NULL,
@@ -920,6 +993,7 @@ CREATE TABLE `payments` (
   `fifth_paymenttype15per` varchar(255) DEFAULT NULL,
   `fifth_chequenumber15per` varchar(255) DEFAULT NULL,
   `fifth_neftid15per` varchar(255) DEFAULT NULL,
+  `fifth_rtgsid15per` varchar(255) DEFAULT NULL,
   `handover15per` varchar(255) DEFAULT NULL,
   `handover_received15per` varchar(255) DEFAULT NULL,
   `handover_balance15per` varchar(255) DEFAULT NULL,
@@ -928,6 +1002,7 @@ CREATE TABLE `payments` (
   `handover_paymenttype15per` varchar(255) DEFAULT NULL,
   `handover_chequenumber15per` varchar(255) DEFAULT NULL,
   `handover_neftid15per` varchar(255) DEFAULT NULL,
+  `handover_rtgsid15per` varchar(255) DEFAULT NULL,
   `onbook20per` varchar(255) DEFAULT NULL,
   `onbook_received20per` varchar(255) DEFAULT NULL,
   `onbook_balance20per` varchar(255) DEFAULT NULL,
@@ -936,6 +1011,7 @@ CREATE TABLE `payments` (
   `onbook_paymenttype20per` varchar(255) DEFAULT NULL,
   `onbook_chequenumber20per` varchar(255) DEFAULT NULL,
   `onbook_neftid20per` varchar(255) DEFAULT NULL,
+  `onbook_rtgsid20per` varchar(255) DEFAULT NULL,
   `payments20per` varchar(255) DEFAULT NULL,
   `payments_received20per` varchar(255) DEFAULT NULL,
   `payments_balance20per` varchar(255) DEFAULT NULL,
@@ -944,6 +1020,7 @@ CREATE TABLE `payments` (
   `payments_paymenttype20per` varchar(255) DEFAULT NULL,
   `payments_chequenumber20per` varchar(255) DEFAULT NULL,
   `payments_neftid20per` varchar(255) DEFAULT NULL,
+  `payments_rtgsid20per` varchar(255) DEFAULT NULL,
   `first20per` varchar(255) DEFAULT NULL,
   `first_received20per` varchar(255) DEFAULT NULL,
   `first_balance20per` varchar(255) DEFAULT NULL,
@@ -952,6 +1029,7 @@ CREATE TABLE `payments` (
   `first_paymenttype20per` varchar(255) DEFAULT NULL,
   `first_chequenumber20per` varchar(255) DEFAULT NULL,
   `first_neftid20per` varchar(255) DEFAULT NULL,
+  `first_rtgsid20per` varchar(255) DEFAULT NULL,
   `second20per` varchar(255) DEFAULT NULL,
   `second_received20per` varchar(255) DEFAULT NULL,
   `second_balance20per` varchar(255) DEFAULT NULL,
@@ -960,6 +1038,7 @@ CREATE TABLE `payments` (
   `second_paymenttype20per` varchar(255) DEFAULT NULL,
   `second_chequenumber20per` varchar(255) DEFAULT NULL,
   `second_neftid20per` varchar(255) DEFAULT NULL,
+  `second_rtgsid20per` varchar(255) DEFAULT NULL,
   `third20per` varchar(255) DEFAULT NULL,
   `third_received20per` varchar(255) DEFAULT NULL,
   `third_balance20per` varchar(255) DEFAULT NULL,
@@ -968,6 +1047,7 @@ CREATE TABLE `payments` (
   `third_paymenttype20per` varchar(255) DEFAULT NULL,
   `third_chequenumber20per` varchar(255) DEFAULT NULL,
   `third_neftid20per` varchar(255) DEFAULT NULL,
+  `third_rtgsid20per` varchar(255) DEFAULT NULL,
   `fourth20per` varchar(255) DEFAULT NULL,
   `fourth_received20per` varchar(255) DEFAULT NULL,
   `fourth_balance20per` varchar(255) DEFAULT NULL,
@@ -976,6 +1056,7 @@ CREATE TABLE `payments` (
   `fourth_paymenttype20per` varchar(255) DEFAULT NULL,
   `fourth_chequenumber20per` varchar(255) DEFAULT NULL,
   `fourth_neftid20per` varchar(255) DEFAULT NULL,
+  `fourth_rtgsid20per` varchar(255) DEFAULT NULL,
   `fifth20per` varchar(255) DEFAULT NULL,
   `fifth_received20per` varchar(255) DEFAULT NULL,
   `fifth_balance20per` varchar(255) DEFAULT NULL,
@@ -984,6 +1065,7 @@ CREATE TABLE `payments` (
   `fifth_paymenttype20per` varchar(255) DEFAULT NULL,
   `fifth_chequenumber20per` varchar(255) DEFAULT NULL,
   `fifth_neftid20per` varchar(255) DEFAULT NULL,
+  `fifth_rtgsid20per` varchar(255) DEFAULT NULL,
   `handover20per` varchar(255) DEFAULT NULL,
   `handover_received20per` varchar(255) DEFAULT NULL,
   `handover_balance20per` varchar(255) DEFAULT NULL,
@@ -992,10 +1074,23 @@ CREATE TABLE `payments` (
   `handover_paymenttype20per` varchar(255) DEFAULT NULL,
   `handover_chequenumber20per` varchar(255) DEFAULT NULL,
   `handover_neftid20per` varchar(255) DEFAULT NULL,
+  `handover_rtgsid20per` varchar(255) DEFAULT NULL,
   `addmore` int(11) DEFAULT 0,
+  `addedby` varchar(255) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `status` enum('Active','Trash') DEFAULT 'Active'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_id`, `customer_id`, `cost_id`, `application_number`, `applicant_name`, `date_of_application`, `gross_amount`, `payment_schedule`, `transaction_type`, `bank_type`, `bank_name`, `loan_amount`, `onbook10per`, `onbook_received10per`, `onbook_balance10per`, `onbook_paymentdate10per`, `onbook_transactiontype10per`, `onbook_paymenttype10per`, `onbook_chequenumber10per`, `onbook_neftid10per`, `onbook_rtgsid10per`, `payments10per`, `payments_received10per`, `payments_balance10per`, `payments_paymentdate10per`, `payments_transactiontype10per`, `payments_paymenttype10per`, `payments_chequenumber10per`, `payments_neftid10per`, `payments_rtgsid10per`, `first10per`, `first_received10per`, `first_balance10per`, `first_paymentdate10per`, `first_transactiontype10per`, `first_paymenttype10per`, `first_chequenumber10per`, `first_neftid10per`, `first_rtgsid10per`, `second10per`, `second_received10per`, `second_balance10per`, `second_paymentdate10per`, `second_transactiontype10per`, `second_paymenttype10per`, `second_chequenumber10per`, `second_neftid10per`, `second_rtgsid10per`, `third10per`, `third_received10per`, `third_balance10per`, `third_paymentdate10per`, `third_transactiontype10per`, `third_paymenttype10per`, `third_chequenumber10per`, `third_neftid10per`, `third_rtgsid10per`, `fourth10per`, `fourth_received10per`, `fourth_balance10per`, `fourth_paymentdate10per`, `fourth_transactiontype10per`, `fourth_paymenttype10per`, `fourth_chequenumber10per`, `fourth_neftid10per`, `fourth_rtgsid10per`, `fifth10per`, `fifth_received10per`, `fifth_balance10per`, `fifth_paymentdate10per`, `fifth_transactiontype10per`, `fifth_paymenttype10per`, `fifth_chequenumber10per`, `fifth_neftid10per`, `fifth_rtgsid10per`, `handover10per`, `handover_received10per`, `handover_balance10per`, `handover_paymentdate10per`, `handover_transactiontype10per`, `handover_paymenttype10per`, `handover_chequenumber10per`, `handover_neftid10per`, `handover_rtgsid10per`, `onbook15per`, `onbook_received15per`, `onbook_balance15per`, `onbook_paymentdate15per`, `onbook_transactiontype15per`, `onbook_paymenttype15per`, `onbook_chequenumber15per`, `onbook_neftid15per`, `onbook_rtgsid15per`, `payments15per`, `payments_received15per`, `payments_balance15per`, `payments_paymentdate15per`, `payments_transactiontype15per`, `payments_paymenttype15per`, `payments_chequenumber15per`, `payments_neftid15per`, `payments_rtgsid15per`, `first15per`, `first_received15per`, `first_balance15per`, `first_paymentdate15per`, `first_transactiontype15per`, `first_paymenttype15per`, `first_chequenumber15per`, `first_neftid15per`, `first_rtgsid15per`, `second15per`, `second_received15per`, `second_balance15per`, `second_paymentdate15per`, `second_transactiontype15per`, `second_paymenttype15per`, `second_chequenumber15per`, `second_neftid15per`, `second_rtgsid15per`, `third15per`, `third_received15per`, `third_balance15per`, `third_paymentdate15per`, `third_transactiontype15per`, `third_paymenttype15per`, `third_chequenumber15per`, `third_neftid15per`, `third_rtgsid15per`, `fourth15per`, `fourth_received15per`, `fourth_balance15per`, `fourth_paymentdate15per`, `fourth_transactiontype15per`, `fourth_paymenttype15per`, `fourth_chequenumber15per`, `fourth_neftid15per`, `fourth_rtgsid15per`, `fifth15per`, `fifth_received15per`, `fifth_balance15per`, `fifth_paymentdate15per`, `fifth_transactiontype15per`, `fifth_paymenttype15per`, `fifth_chequenumber15per`, `fifth_neftid15per`, `fifth_rtgsid15per`, `handover15per`, `handover_received15per`, `handover_balance15per`, `handover_paymentdate15per`, `handover_transactiontype15per`, `handover_paymenttype15per`, `handover_chequenumber15per`, `handover_neftid15per`, `handover_rtgsid15per`, `onbook20per`, `onbook_received20per`, `onbook_balance20per`, `onbook_paymentdate20per`, `onbook_transactiontype20per`, `onbook_paymenttype20per`, `onbook_chequenumber20per`, `onbook_neftid20per`, `onbook_rtgsid20per`, `payments20per`, `payments_received20per`, `payments_balance20per`, `payments_paymentdate20per`, `payments_transactiontype20per`, `payments_paymenttype20per`, `payments_chequenumber20per`, `payments_neftid20per`, `payments_rtgsid20per`, `first20per`, `first_received20per`, `first_balance20per`, `first_paymentdate20per`, `first_transactiontype20per`, `first_paymenttype20per`, `first_chequenumber20per`, `first_neftid20per`, `first_rtgsid20per`, `second20per`, `second_received20per`, `second_balance20per`, `second_paymentdate20per`, `second_transactiontype20per`, `second_paymenttype20per`, `second_chequenumber20per`, `second_neftid20per`, `second_rtgsid20per`, `third20per`, `third_received20per`, `third_balance20per`, `third_paymentdate20per`, `third_transactiontype20per`, `third_paymenttype20per`, `third_chequenumber20per`, `third_neftid20per`, `third_rtgsid20per`, `fourth20per`, `fourth_received20per`, `fourth_balance20per`, `fourth_paymentdate20per`, `fourth_transactiontype20per`, `fourth_paymenttype20per`, `fourth_chequenumber20per`, `fourth_neftid20per`, `fourth_rtgsid20per`, `fifth20per`, `fifth_received20per`, `fifth_balance20per`, `fifth_paymentdate20per`, `fifth_transactiontype20per`, `fifth_paymenttype20per`, `fifth_chequenumber20per`, `fifth_neftid20per`, `fifth_rtgsid20per`, `handover20per`, `handover_received20per`, `handover_balance20per`, `handover_paymentdate20per`, `handover_transactiontype20per`, `handover_paymenttype20per`, `handover_chequenumber20per`, `handover_neftid20per`, `handover_rtgsid20per`, `addmore`, `addedby`, `created_date`, `status`) VALUES
+(98, 52, 26, '1003', 'Kamal', '05-04-2022', '15000.00', '10', 'Ownfund', '-', '-', NULL, '1500', '1500', '0', '05-04-2022', 'Ownfund', 'Cash', '-', '-', '-', '6000', '0', '6000', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '2250', '0', '2250', '-', '-', '-', '-', '-', '-', '6000', '0', '6000', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '3000', '0', '3000', '-', '-', '-', '-', '-', '-', '6000', '0', '6000', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '1500', '0', '1500', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', '750', '0', '750', '-', '-', '-', '-', '-', '-', 1, 'admin', '2022-04-12 12:17:25', 'Active'),
+(100, 48, 25, '001', 'jamal', '04-04-2022', '3638.70', '20', 'Bank', 'CANARA', '-', '150000', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '545.81', '0', '545.81', '-', '-', '-', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '727.74', '527.74', '200.00', '01-04-2022', 'Ownfund', 'NEFT', '-', '215454', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', 1, 'admin', '2022-04-12 12:49:02', 'Active'),
+(102, 48, 25, '001', 'jamal', '04-04-2022', '3638.70', '20', 'Bank', 'CANARA', '-', '150000', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '545.81', '0', '545.81', '-', '-', '-', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '200.00', '200', '0.00', '01-04-2022', 'Ownfund', 'Cash', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', 1, 'admin', '2022-04-12 13:15:52', 'Active'),
+(103, 48, 25, '001', 'jamal', '04-04-2022', '3638.70', '20', 'Ownfund', '-', '-', NULL, '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '545.81', '0', '545.81', '-', '-', '-', '-', '-', '-', '1455.48', '0', '1455.48', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '0.00', '0', '0.00', '-', '-', '-', '-', '-', '-', '1455.48', '1455', '0.48', '01-04-2022', 'Ownfund', 'Cash', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '363.87', '0', '363.87', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', '181.94', '0', '181.94', '-', '-', '-', '-', '-', '-', 0, 'admin', '2022-04-12 13:21:20', 'Active'),
+(104, 52, 26, '1003', 'Kamal', '05-04-2022', '15000.00', '10', 'Bank', 'HDFC', '-', '15000', '0', '0', '0.00', '-', '-', '-', '-', '-', '-', '6000', '6000', '0.00', '12-04-2022', 'Bank', 'Cash', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '2250', '0', '2250.00', '-', '-', '-', '-', '-', '-', '6000', '0', '6000.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '3000', '0', '3000.00', '-', '-', '-', '-', '-', '-', '6000', '0', '6000.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '1500', '0', '1500.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', '750', '0', '750.00', '-', '-', '-', '-', '-', '-', 0, 'admin', '2022-04-12 13:33:07', 'Active');
 
 -- --------------------------------------------------------
 
@@ -1038,9 +1133,18 @@ CREATE TABLE `receipts` (
   `bank_towards` varchar(255) DEFAULT NULL,
   `referred_by` varchar(255) DEFAULT NULL,
   `final_amount` varchar(255) DEFAULT NULL,
+  `addedby` varchar(255) DEFAULT NULL,
   `status` enum('Active','Trash') NOT NULL DEFAULT 'Active',
   `created_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `receipts`
+--
+
+INSERT INTO `receipts` (`receipt_id`, `receipt_no`, `receipt_date`, `customer_id`, `received`, `application_number`, `sum_rupees`, `cheque_no`, `dated`, `drawn_on`, `bank_towards`, `referred_by`, `final_amount`, `addedby`, `status`, `created_date`) VALUES
+(8, '1', '05-04-2022', 52, 'Kamal', '1003', NULL, NULL, NULL, NULL, NULL, NULL, '20000', 'mothersvillage', 'Active', '2022-04-05 14:46:36'),
+(9, '2', '05-04-2022', 49, 'ahamed', '002', 'Fifty Thousand Rupees', NULL, NULL, NULL, NULL, NULL, '50000', 'admin', 'Active', '2022-04-05 15:24:46');
 
 --
 -- Indexes for dumped tables
@@ -1138,25 +1242,25 @@ ALTER TABLE `blocks`
 -- AUTO_INCREMENT for table `costs`
 --
 ALTER TABLE `costs`
-  MODIFY `cost_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `cost_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
-  MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `document_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `families`
 --
 ALTER TABLE `families`
-  MODIFY `family_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `family_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `flatnumbers`
@@ -1180,7 +1284,7 @@ ALTER TABLE `floors`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `phases`
@@ -1192,7 +1296,7 @@ ALTER TABLE `phases`
 -- AUTO_INCREMENT for table `receipts`
 --
 ALTER TABLE `receipts`
-  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `receipt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

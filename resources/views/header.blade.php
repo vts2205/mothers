@@ -111,10 +111,10 @@
 </script>
 
 <!-- <script>
-    $(document).on('click', '.add', function(e) {
+    $(document).on('click', '#j_sub', function(e) {
         e.preventDefault();
         $('#addModal').modal('show');
-        $('#addModal').find('.btn-primary').attr('name', $(this).attr('name'));
+        $('#addModal').find('.btn-primary').attr('submit', $(this).attr('submit'));
     });
 </script> -->
 <style>

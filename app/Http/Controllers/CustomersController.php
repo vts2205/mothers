@@ -185,26 +185,30 @@ class CustomersController extends Controller
     {
 
         $check = $this->validate($request, [
+            'applicant_name' => ['required'],
+            'date_of_application' => ['required'],
             'fathers_name' => ['required'],
             'age' => ['required'],
             'gender' => ['required'],
-            'phone' => ['required'],
-            'name' => ['required'],
-            'occupation' => ['required'],
-            'address' => ['required'],
-            'income' => ['required'],
-            'experience' => ['required'],
+            'phone_code' => ['required'],
+           
             'email' => ['required', Rule::unique('customers')->where(function ($query) use ($request, $id) {
                 return $query->where('email', $request->email)->where('customer_id', '<>', $id)->where('status', '<>', 'Trash');
             })],
         ]);
         $data = Customer::findOrFail($id);
-        $data->name = $request->name;
+        $data->applicant_name = $request->applicant_name;
+        $data->application_number = $request->application_number;
+        $data->date_of_application = $request->date_of_application;
         $data->fathers_name = $request->fathers_name;
         $data->age = $request->age;
         $data->gender = $request->gender;
+        $data->phone_code = $request->phone_code;
         $data->phone = $request->phone;
-        $data->address = $request->address;
+        $data->altphone_code = $request->altphone_code;
+        $data->altphone = $request->altphone;
+        $data->permanent_address = $request->permanent_address;
+        $data->present_address = $request->present_address;
         $data->income = $request->income;
         $data->email = $request->email;
         $data->occupation = $request->occupation;
@@ -218,42 +222,64 @@ class CustomersController extends Controller
         }
         $data->modified_date = date('Y-m-d H:i:s');
         $data->save();
-        if (!empty($request->son_profession)) {
-            if (!empty($request->son_age)) {
-                if (!empty($request->son_name)) {
-                    $delete = Son::where('customer_id', $id)->delete();
-                    $n = sizeof($request->son_name);
-                    $son_name = $request->son_name;
-                    $son_profession = $request->son_profession;
-                    $son_age = $request->son_age;
-                    for ($i = 0; $i < $n; $i++) {
-                        $data = new Family();
-                        $data->customer_id = $id;
-                        $data->son_profession = $son_profession[$i];
-                        $data->son_age = $son_age[$i];
-                        $data->son_name = $son_name[$i];
-                        $data->status = "Active";
-                        $data->save();
+        
+        if (!empty($request->son_school)) {
+            if (!empty($request->son_class)) {
+                if (!empty($request->son_profession)) {
+                    if (!empty($request->son_age)) {
+                        if (!empty($request->son_name)) {
+                            $delete = Family::where('customer_id', $id)->delete();
+                            $n = sizeof($request->son_name);
+                            $son_name = $request->son_name;
+                            $son_profession = $request->son_profession;
+                            $son_school = $request->son_school;
+                            $son_class = $request->son_class;
+                            $son_age = $request->son_age;
+                            for ($i=0; $i<$n; $i++) {
+                                $data = new Family();
+                                $data->customer_id = $id;
+                                $data->relation = "Son";
+                                $data->class = $son_class[$i] ? $son_class[$i]:"-";
+                                $data->school = $son_school[$i] ? $son_school[$i]:"-";
+                                $data->profession = $son_profession[$i] ? $son_profession[$i]:"-";
+                                $data->age = $son_age[$i] ? $son_age[$i]:"-";
+                                $data->name = $son_name[$i] ? $son_name[$i]:"-";
+                                $data->status = "Active";
+                                $data->created_date = date('Y-m-d H:i:s');
+                                $data->save();
+                            }
+                        }
                     }
                 }
             }
         }
-        if (!empty($request->daughter_profession)) {
-            if (!empty($request->daughter_age)) {
-                if (!empty($request->daughter_name)) {
-                    $delete = Family_detail::where('customer_id', $id)->delete();
-                    $n = sizeof($request->daughter_name);
-                    $daughter_name = $request->daughter_name;
-                    $daughter_profession = $request->daughter_profession;
-                    $daughter_age = $request->daughter_age;
-                    for ($i = 0; $i < $n; $i++) {
-                        $data = new Family_detail();
-                        $data->customer_id = $id;
-                        $data->daughter_profession = $daughter_profession[$i];
-                        $data->daughter_age = $daughter_age[$i];
-                        $data->daughter_name = $daughter_name[$i];
-                        $data->status = "Active";
-                        $data->save();
+
+        if (!empty($request->daughter_school)) {
+            if (!empty($request->daughter_class)) {
+                if (!empty($request->daughter_profession)) {
+                    if (!empty($request->daughter_age)) {
+                        if (!empty($request->daughter_name)) {
+                            $delete = Family::where('customer_id', $id)->delete();
+                            $n = sizeof($request->daughter_name);
+                            $daughter_name = $request->daughter_name;
+                            $daughter_school = $request->daughter_school;
+                            $daughter_class = $request->daughter_class;
+                            $daughter_profession = $request->daughter_profession;
+                            $daughter_age = $request->daughter_age;
+                            for ($i = 0; $i < $n; $i++) {
+                                $data = new Family();
+                                $data->customer_id = $id;
+                                $data->relation = "Daughter";
+                                $data->class = $daughter_class[$i] ? $daughter_class[$i]:"-";
+                                $data->school = $daughter_school[$i] ? $daughter_school[$i]:"-";
+                                $data->profession = $daughter_profession[$i] ? $daughter_profession[$i]:"-";
+                                $data->age = $daughter_age[$i] ? $daughter_age[$i]:"-";
+                                $data->name = $daughter_name[$i] ? $daughter_name[$i]:"-";
+                                $data->status = "Active";
+                                $data->created_date = date('Y-m-d H:i:s');
+                                $data->save();
+                            }
+                        }
                     }
                 }
             }

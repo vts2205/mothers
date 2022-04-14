@@ -84,11 +84,7 @@
                                             <th>Application Date</th>
                                             <th>Gross Amount</th>
                                             <th>Payment Schedule</th>
-                                            <?php
-                                            if($sessionadmin->adminname == "Admin"){
-                                            ?>
                                             <th>Added By</th>
-                                            <?php } ?>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
@@ -120,11 +116,9 @@
                                                 <td>{{ $result->date_of_application }}</td>
                                                 <td>{{"Rs. "}}{{ $result->gross_amount }}</td>
                                                 <td class="text-center">{{ $result->payment_schedule }}{{" %"}}</td>
-                                                <?php
-                                            if($sessionadmin->adminname == "Admin"){        
-                                            ?>
+                                            
                                                 <td>{{ $result->addedby }}</td>
-                                                <?php } ?>
+                                               
                                                 <td class="text-center">
                                                     <div class="btn-group">
                                                         

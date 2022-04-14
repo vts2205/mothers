@@ -337,7 +337,7 @@
 
 
                                         <div class="form-group text-right">
-                                            <button type="submit" name="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
+                                            <button type="submit" id="j_sub" name="submit" class="btn btn-accent m-btn m-btn--air m-btn--custom">
                                                 Submit
                                             </button>
                                         </div>
@@ -352,6 +352,7 @@
     </div>
 </div>
 <script>
+ 
     $("#marketing_range-add-more").click(function() {
         $(".marketing_range_list").append('<li class="added-li"><div class="row" style="margin-bottom: 12px;"><div class="col-md-4"><input style="width: 100%;text-transform: capitalize;" class="form-control " name="son_name[]"  type="text" autocomplete="off" placeholder="Name"></div><div class="col-md-4"><input class="form-control" name="son_age[]" type="text" autocomplete="off" maxlength="2" placeholder="Age" style="width: 100%;"></div><div class="col-md-4"><input style="width: 100%;text-transform: capitalize;" class="form-control " name="son_profession[]"  type="text" autocomplete="off" placeholder="Profession"></div></div><div class="row" style="margin-bottom: 12px;"><div class="col-md-4"><input style="width: 100%;text-transform: capitalize;" class="form-control " name="son_school[]"  type="text" autocomplete="off" placeholder="School"></div><div class="col-md-4"><input style="width: 100%;text-transform: capitalize;" class="form-control " name="son_class[]" type="text" autocomplete="off" placeholder="Class"></div></div><a class="btn btn-danger removebtn" style="margin: 0px;margin-bottom: 5px;" href="#" onclick="parentNode.parentNode.removeChild(parentNode)">-</a></li>');
     });

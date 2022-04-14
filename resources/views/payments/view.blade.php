@@ -55,7 +55,7 @@
 
                                         $i = ($results->currentpage() - 1) * $results->perpage() + 1;
                                         foreach ($results as $result) {
-                                            $customer = App\Customer::where('customer_id', $result['customer_id'])->first();
+                                           
                                         ?>
                                        
                                             <tr>
